@@ -1,0 +1,8 @@
+--- /tmp/peardev.sh	2008-02-10 11:52:09 +0400
++++ PEAR-1.6.2/scripts/peardev.sh	2008-02-10 11:52:40 +0400
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#@GENTOO_PORTAGE_PREFIX@!/bin/sh
+ 
+ # first find which PHP binary to use
+ if test "x$PHP_PEAR_PHP_BIN" != "x"; then

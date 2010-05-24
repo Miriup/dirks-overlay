@@ -1,0 +1,17 @@
+qt-bugs@ issue : 16115
+applied: no
+author: Lubos Lunak <l.lunak@kde.org>
+
+See http://lists.kde.org/?t=104388858900001&r=1&w=2
+
+
+--- src/kernel/qdragobject.h.sav	2002-11-01 19:25:07.000000000 +0100
++++ src/kernel/qdragobject.h	2001-01-01 01:01:00.000000000 +0100
+@@ -245,6 +245,7 @@ private:
+     void move( const QPoint & );
+     void drop();
+     void updatePixmap();
++    void updatePixmap( const QPoint& cursorPos );
+ 
+ private:
+     QDragObject * object;

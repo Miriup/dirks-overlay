@@ -1,0 +1,22 @@
+Index: src/kernel/qapplication_x11.cpp
+===================================================================
+--- src/kernel/qapplication_x11.cpp	(revision 471775)
++++ src/kernel/qapplication_x11.cpp	(working copy)
+@@ -314,7 +314,7 @@
+ 
+ // flags for extensions for special Languages, currently only for RTL languages
+ static bool 	qt_use_rtl_extensions = FALSE;
+-bool qt_hebrew_keyboard_hack = FALSE;
++Q_EXPORT bool qt_hebrew_keyboard_hack = FALSE;
+ 
+ static Window	mouseActWindow	     = 0;	// window where mouse is
+ static int	mouseButtonPressed   = 0;	// last mouse button pressed
+@@ -3800,7 +3800,7 @@
+ }
+ 
+ 
+-bool qt_try_modal( QWidget *widget, XEvent *event )
++Q_EXPORT bool qt_try_modal( QWidget *widget, XEvent *event )
+ {
+     if (qt_xdnd_dragging) {
+ 	// allow mouse events while DnD is active

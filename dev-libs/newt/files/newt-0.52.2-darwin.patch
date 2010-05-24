@@ -1,0 +1,94 @@
+--- Makefile.in	2007-12-30 18:00:57 +0400
++++ Makefile.in	2007-12-30 19:40:29 +0400
+@@ -13,15 +13,15 @@
+ 
+ PYTHONVERS = python2.4
+ 
+-WHIPTCLSO=whiptcl.so
++WHIPTCLSO=whiptcl.dylib
+ 
+ PROGS = test whiptail testgrid testtree showchars showkey
+ TESTOBJS = test.o
+ NDIALOGOBJS = whiptail.o dialogboxes.o
+ WHIPTCLOBJS = whiptcl.o dialogboxes.o
+ LIBNEWT = libnewt.a
+-LIBNEWTSH = libnewt.so.$(VERSION)
+-LIBNEWTSONAME = libnewt.so.$(SONAME)
++LIBNEWTSH = libnewt.$(VERSION).dylib
++LIBNEWTSONAME = libnewt.$(SONAME).dylib
+ LIBOBJS = newt.o button.o form.o checkbox.o entry.o label.o listbox.o \
+           scrollbar.o textbox.o scale.o grid.o windows.o buttonbar.o \
+ 	  checkboxtree.o
+@@ -47,7 +47,7 @@
+ TARGET=depend $(PROGS)
+ endif
+ 
+-all:	$(TARGET) _snackmodule.so po/stamp-po
++all:	$(TARGET) _snackmodule.dylib po/stamp-po
+ 
+ po/stamp-po:
+ 	$(MAKE) -C po stamp-po
+@@ -67,20 +67,20 @@
+ showkey:	showkey.o $(LIBNEWT)
+ 	$(CC) $(LDFLAGS) -o showkey showkey.o $(LIBNEWT) $(LIBS)
+ 
+-_snackmodule.so:   snackmodule.c $(LIBNEWTSH)
++_snackmodule.dylib:   snackmodule.c $(LIBNEWTSH)
+ 	for ver in $(PYTHONVERS) ; do \
+-	    if [ ! -f "$$ver/_snackmodule.so" -o $(LIBNEWTSH) -nt "$$ver/_snackmodule.so" ]; then \
++	    if [ ! -f "$$ver/_snackmodule.dylib" -o $(LIBNEWTSH) -nt "$$ver/_snackmodule.dylib" ]; then \
+ 	    	mkdir -p $$ver ;\
+ 	        $(CC) $(CFLAGS) -I/usr/include/$$ver -fPIC -c -o $$ver/snackmodule.o snackmodule.c ;\
+-		$(CC) --shared $(SHCFLAGS) -o $$ver/_snackmodule.so $$ver/snackmodule.o -L .  -lnewt -lslang ;\
++		$(CC) --shared $(SHCFLAGS) -o $$ver/_snackmodule.dylib $$ver/snackmodule.o -L .  -lnewt -lslang ;\
+ 	    fi ; \
+ 	done
+ 
+ whiptail: $(NDIALOGOBJS) $(LIBNEWTSH)
+ 	$(CC) -g -o whiptail $(NDIALOGOBJS) -L . -lnewt $(LIBS) -lpopt
+ 
+-#whiptcl.so: $(WHIPTCLOBJS) $(LIBNEWTSH)
+-#	$(CC) -shared $(SHCFLAGS) -o whiptcl.so $(WHIPTCLOBJS) -L . -lnewt  $(LIBTCL) -lslang -lpopt -lm
++#whiptcl.dylib: $(WHIPTCLOBJS) $(LIBNEWTSH)
++#	$(CC) -shared $(SHCFLAGS) -o whiptcl.dylib $(WHIPTCLOBJS) -L . -lnewt  $(LIBTCL) -lslang -lpopt -lm
+ 
+ # Ensure dialogboxes is compiled -fPIC
+ dialogboxes.o: dialogboxes.c
+@@ -101,7 +101,7 @@
+ 
+ clean:
+ 	rm -f $(PROGS) *.o $(LIBNEWT) core $(LIBNEWTSH)  \
+-		$(SHAREDOBJS) *.so*
++		$(SHAREDOBJS) *.dylib
+ 
+ depend:
+ 	$(CPP) $(CFLAGS) -M $(SOURCES) > .depend
+@@ -112,7 +112,7 @@
+ sharedlib: $(LIBNEWTSH)
+ 
+ $(LIBNEWTSH): $(SHAREDDIR) $(SHAREDOBJS)
+-	$(CC) -shared -o $(LIBNEWTSH) $(SHLIBFLAGS) -Wl,-soname,$(LIBNEWTSONAME) $(SHAREDOBJS) $(SHLIBS)
+-	ln -fs $(LIBNEWTSH) libnewt.so
++	$(CC) -dynamiclib $(SHAREDOBJS) -o $(LIBNEWTSH) -lslang -lm
++	ln -fs $(LIBNEWTSH) libnewt.dylib
+ 
+ $(SHAREDDIR)/%.o : %.c
+@@ -130,14 +130,14 @@
+ 	install -m 644 $(LIBNEWT) $(instroot)/$(libdir)
+ 	install -m 755 whiptail $(instroot)/$(bindir)
+ 
+-install-sh: sharedlib _snackmodule.so
++install-sh: sharedlib _snackmodule.dylib
+ 	[ -d $(instroot)/$(libdir) ] || install -m 755 -d $(instroot)/$(libdir)
+ 	install -m 755 $(LIBNEWTSH) $(instroot)/$(libdir)
+-	ln -sf $(LIBNEWTSH) $(instroot)/$(libdir)/libnewt.so
+-#	[ -n "$(WHIPTCLSO)" ] && install -m 755 whiptcl.so $(instroot)/$(libdir) || :
++	ln -sf $(LIBNEWTSH) $(instroot)/$(libdir)/libnewt.dylib
++#	[ -n "$(WHIPTCLSO)" ] && install -m 755 whiptcl.dylib $(instroot)/$(libdir) || :
+ 	for ver in $(PYTHONVERS) ; do \
+ 	   [ -d $(instroot)/$(libdir)/$$ver/site-packages ] || install -m 755 -d $(instroot)/$(libdir)/$$ver/site-packages ;\
+-	   install -m 755 $$ver/_snackmodule.so $(instroot)/$(libdir)/$$ver/site-packages ;\
++	   install -m 755 $$ver/_snackmodule.dylib $(instroot)/$(libdir)/$$ver/site-packages ;\
+ 	   install -m 755 snack.py $(instroot)/$(libdir)/$$ver/site-packages ;\
+ 	done
+ 

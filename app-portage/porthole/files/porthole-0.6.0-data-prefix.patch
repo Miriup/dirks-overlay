@@ -1,0 +1,10 @@
+diff -ur porthole-0.6.0/setup.cfg porthole-0.6.0/setup.cfg
+--- porthole-0.6.0/setup.cfg	2009-08-09 05:29:35 +0400
++++ porthole-0.6.0/setup.cfg	2010-05-06 15:46:56 +0400
+@@ -1,5 +1,5 @@
+ [install]
+-install-data=/usr
++install-data=@GENTOO_PORTAGE_EPREFIX@/usr
+ 
+ [sdist]
+ formats=bztar

@@ -1,0 +1,44 @@
+--- Makefile	2008-02-20 16:36:31 +0400
++++ Makefile	2008-02-20 16:59:06 +0400
+@@ -9,17 +9,20 @@
+ # for xbase sys/locking problem in 1.8.0a
+ CFLAGS += -DHAVE_CONFIG_H
+ LIBS = -L/usr/local/pgsql/lib -lpq -lxbase
++OSTYPE:=$(shell uname)
+ 
+-ifeq ($(OSTYPE),solaris)
++ifeq ($(OSTYPE),Solaris)
+ # uncomment for Solaris
+ LIBS += -lsocket -lnsl
+ prefix=/usr/local
+ else
++ifeq ($(OSTYPE),Linux)
+ # -- LINUX DEFS --
+ LIBS += -lcrypt
+ CFLAGS += -DLINUX
+ prefix=/usr
+ endif
++endif
+ 
+ # CFLAGS += -static
+ CP=cp
+@@ -31,6 +34,7 @@
+ HEADERS = xbase2pg.hh
+ 
+ convtable=$(prefix)/share/pg2xbase/convenctable
++mandir=$(prefix)/man
+ 
+ all: $(PROGS)
+ 
+@@ -60,9 +64,9 @@
+ 	tar cvf - README INSTALL COPYING-2.0 *.h *.hh *.cpp *.1 convenctable Makefile | gzip -c > xbase2pg.tgz
+ 
+ install: xbase2pg pg2xbase xbasenew xbaseconv
+-	mkdir -p $(prefix)/bin/ $(prefix)/man/man1/
++	mkdir -p $(prefix)/bin/ $(mandir)/man1/
+ 	mkdir -p $(prefix)/share/pg2xbase
+ 	$(CP) $(PROGS) $(prefix)/bin/
+ 	$(CP) convenctable $(convtable)
+-	$(CP) xbase2pg.1 pg2xbase.1 xbaseconv.1 xbasenew.1 $(prefix)/man/man1/
++	$(CP) xbase2pg.1 pg2xbase.1 xbaseconv.1 xbasenew.1 $(mandir)/man1/
+ 	

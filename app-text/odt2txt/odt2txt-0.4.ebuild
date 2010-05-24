@@ -23,6 +23,5 @@ src_prepare() {
 }
 
 src_install() {
-	insinto /usr/bin
-	doins odt2txt
+	dobin odt2txt
 }

@@ -2,6 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=2
+
+inherit eutils
+
 DESCRIPTION="command-line tool which extracts the text out of OpenDocument Texts produced by OpenOffice.org, StarOffice, KOffice and others."
 HOMEPAGE="http://stosberg.net/odt2txt/"
 SRC_URI="http://stosberg.net/odt2txt/${P}.tar.gz"
@@ -13,6 +17,10 @@ IUSE=""
 
 DEPEND=""
 RDEPEND=""
+
+src_prepare() {
+	epatch ${FILESDIR}/${P}-darwin-iconv.patch
+}
 
 src_install() {
 	insinto /usr/bin

@@ -4,7 +4,7 @@
 
 EAPI=2
 
-inherit eutils
+inherit eutils prefix
 
 DESCRIPTION="command-line tool which extracts the text out of OpenDocument Texts produced by OpenOffice.org, StarOffice, KOffice and others."
 HOMEPAGE="http://stosberg.net/odt2txt/"
@@ -15,7 +15,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86-macos"
 IUSE=""
 
-DEPEND=""
+DEPEND="
+sys-libs/zlib
+virtual/libiconv"
 RDEPEND=""
 
 src_prepare() {
@@ -23,6 +25,5 @@ src_prepare() {
 }
 
 src_install() {
-	insinto /usr/bin
-	doins odt2txt
+	emake DESTDIR="${D}" PREFIX="${EPREFIX}/usr" install
 }

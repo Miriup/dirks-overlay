@@ -1,0 +1,12 @@
+diff -ur /nrpe-2.12/configure.in /nrpe-2.12/configure.in
+--- /nrpe-2.12/configure.in	2008-03-11 01:04:41.000000000 +0400
++++ /nrpe-2.12/configure.in	2010-08-06 15:02:56.000000000 +0400
+@@ -287,7 +287,7 @@
+ 		found_ssl=no
+ 		for dir in $ssl_lib_dir $ssl_dir /usr/lib64 /usr/lib /usr/local/lib /usr/lib/ssl /usr/ssl/lib /usr/openssl/lib /usr/pkg/lib  /usr/freeware/lib/openssl; do
+ 			ssllibdir="$dir"
+-			if test -f "$dir/libssl.so"; then
++			if test -f "$dir/libssl.so" -o "$dir/libssl.dylib"; then
+ 				found_ssl=yes
+ 			        break
+ 			fi

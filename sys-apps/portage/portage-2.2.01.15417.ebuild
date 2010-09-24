@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id: portage-2.2.00.15842-r1.ebuild 57708 2010-04-24 15:11:31Z grobian $
+# $Id: portage-2.2.01.15417.ebuild 58296 2010-07-23 07:50:38Z grobian $
 
 RESTRICT="test"
 
@@ -81,7 +81,6 @@ src_unpack() {
 
 	epatch "${FILESDIR}"/${PN}-2.2.00.13849-ebuildshell.patch #155161
 	epatch "${FILESDIR}"/portage-2.2.00.15842-configshell.patch #308835
-	epatch "${FILESDIR}"/portage-2.2.00.15842-shebangcheck.patch #313731
 
 	use prefix-chaining && epatch "${FILESDIR}"/${PN}-2.2.00.15801-prefix-chaining.patch
 }

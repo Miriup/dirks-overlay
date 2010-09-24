@@ -1,6 +1,31 @@
 # ChangeLog for sys-apps/portage
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
-# $Id: ChangeLog 58251 2010-07-07 18:00:20Z grobian $
+# $Id: ChangeLog 58601 2010-08-09 17:38:45Z grobian $
+
+*portage-2.2.01.15553 (09 Aug 2010)
+
+  09 Aug 2010; Fabian Groffen <grobian@gentoo.org>
+  -portage-2.2.01.15478.ebuild, +portage-2.2.01.15553.ebuild:
+  Replace last snapshot by one that is tested better
+
+*portage-2.2.01.15478 (07 Aug 2010)
+
+  07 Aug 2010; Fabian Groffen <grobian@gentoo.org>
+  -portage-2.2.01.15354-r1.ebuild, +portage-2.2.01.15478.ebuild:
+  Bump snapshot
+
+*portage-2.2.01.15417 (23 Jul 2010)
+
+  23 Jul 2010; Fabian Groffen <grobian@gentoo.org>
+  +portage-2.2.01.15417.ebuild:
+  Version bump, includes darkside's redundant mirror patch
+
+*portage-2.2.01.15354-r1 (22 Jul 2010)
+
+  22 Jul 2010; Jeremy Olexa <darkside@gentoo.org>
+  +files/0001-emerge-webrsync-Redundant-Mirroring.patch,
+  +portage-2.2.01.15354-r1.ebuild:
+  Add emerge-webrsync patch to use a redundant mirror
 
 *portage-2.2.01.15354 (07 Jul 2010)
 

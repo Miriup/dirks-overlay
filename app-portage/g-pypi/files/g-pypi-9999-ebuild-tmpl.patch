@@ -1,0 +1,19 @@
+diff -ur setup.py setup.py
+--- setup.py	2010-09-19 17:26:05.000000000 +0400
++++ setup.py	2010-09-19 17:26:38.000000000 +0400
+@@ -4,6 +4,7 @@
+ 
+ from g_pypi.__init__ import __version__ as VERSION
+ 
++import distutils
+ 
+ setup(name="g-pypi",
+     license="GPL-2",
+@@ -31,5 +32,7 @@
+     include_package_data = True,
+     entry_points={'console_scripts': ['g-pypi = g_pypi.cli:main']},
+     test_suite='nose.collector',
++    data_files=[(distutils.sysconfig.get_python_lib() + '/g_pypi/',
++        ['g_pypi/ebuild.tmpl'])],
+ )
+ 

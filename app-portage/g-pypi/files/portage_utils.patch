@@ -1,0 +1,23 @@
+--- portage_utils.py.orig	2008-09-27 17:17:42.000000000 -0400
++++ portage_utils.py	2008-09-27 17:17:13.000000000 -0400
+@@ -32,7 +32,9 @@
+ 
+ __docformat__ = 'restructuredtext'
+ 
+-ENV = portage_config(clone=portage_settings).environ()
++PORTAGE_CONFIG = portage_config(clone=portage_settings)
++PORTAGE_CONFIG_DICT = PORTAGE_CONFIG.configdict
++ENV = PORTAGE_CONFIG.environ()
+ LOGGER = logging.getLogger(__name__)
+ LOGGER.setLevel(logging.DEBUG)
+ LOGGER.addHandler(logging.StreamHandler())
+@@ -215,7 +217,8 @@
+     #Choose the first arch they have, in case of multiples.
+     
+     try:
+-        arch = ENV["ACCEPT_KEYWORDS"].split(' ')[0]
++        #arch = ENV["ACCEPT_KEYWORDS"].split(' ')[0]
++        arch = PORTAGE_CONFIG["ACCEPT_KEYWORDS"].split(' ')[0]
+     except KeyError:
+         LOGGER.error("No ACCEPT_KEYWORDS found, using ~x86")
+         arch = '~x86'

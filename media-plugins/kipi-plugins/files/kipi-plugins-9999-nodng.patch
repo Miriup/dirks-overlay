@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 527ef56..4c3b2a3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -424,7 +424,7 @@ IF(KIPIPLUGINS_CAN_BE_COMPILED)
+ 
+     IF(EXPAT_FOUND)
+         IF(CMAKE_USE_PTHREADS_INIT OR CMAKE_USE_WIN32_THREADS_INIT)
+-            ADD_SUBDIRECTORY(dngconverter)
++            #ADD_SUBDIRECTORY(dngconverter)
+         ENDIF(CMAKE_USE_PTHREADS_INIT OR CMAKE_USE_WIN32_THREADS_INIT)
+     ENDIF(EXPAT_FOUND)
+ 

@@ -1,0 +1,19 @@
+--- /tmp/Makefile.darwin-lib	2008-02-12 18:07:09 +0400
++++ lib/Makefile.darwin-lib	2008-02-12 18:12:44 +0400
+@@ -24,7 +24,7 @@
+ $(BSD_LIB): $(OBJS)
+ 	@echo "	GEN_BSD_SOLIB $(BSD_LIB)"
+ 	@(cd pic; $(CC) -dynamiclib -compatibility_version 1.0 -current_version $(BSDLIB_VERSION) \
+-		-flat_namespace -undefined warning -o $(BSD_LIB) $(OBJS))
++		-flat_namespace -undefined warning -install_name $(BSDLIB_INSTALL_DIR)/$(BSD_LIB) -o $(BSD_LIB) $(OBJS))
+ 	@$(MV) pic/$(BSD_LIB) .
+ 	@$(RM) -f ../$(BSD_LIB)
+ 	@$(LN) $(BSD_LIB) ../$(BSD_LIB)
+@@ -32,6 +32,7 @@
+ 
+ install-shlibs install:: $(BSD_LIB)
+ 	@echo "	INSTALL_PROGRAM $(BSDLIB_INSTALL_DIR)/$(BSD_LIB)"
++	@$(MKINSTALLDIRS) $(DESTDIR)$(libdir)
+ 	@$(INSTALL_PROGRAM) $(BSD_LIB) \
+ 		$(DESTDIR)$(BSDLIB_INSTALL_DIR)/$(BSD_LIB)
+ 	@-$(LDCONFIG)

@@ -1,0 +1,12 @@
+--- configure.in	2008-02-04 15:31:00 +0400
++++ configure.in	2008-02-04 15:33:33 +0400
+@@ -36,6 +36,9 @@
+ 	          GEOTIFF_DLL=cyggeotiff-1.dll
+ 	          GEOTIFF_IMP=libgeotiff.dll.a
+                   LD_SHARED="gcc -shared -Wl,--export-all -Wl,--out-implib=\$(GEOTIFF_IMP)" ;;
++    *-apple-darwin*)
++    		  GEOTIFF_SO=libgeotiff.$VERSION_MAJOR.$VERSION_MINOR.$VERSION_POINT.${SO_EXT}
++		  LD_SHARED="gcc -dynamiclib -install_name @GENTOO_PORTAGE_EPREFIX@/usr/lib/libgeotiff.$VERSION_MAJOR.$VERSION_MINOR.$VERSION_POINT.${SO_EXT}" ;;
+     *) GEOTIFF_SO=libgeotiff.${SO_EXT}.$VERSION_MAJOR.$VERSION_MINOR.$VERSION_POINT ;;
+   esac
+ fi

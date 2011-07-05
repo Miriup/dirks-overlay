@@ -1,0 +1,28 @@
+--- bdelta-0.1.0/Makefile	2007-10-31 02:26:12 +0400
++++ bdelta-0.1.0/Makefile	2007-10-31 02:30:13 +0400
+@@ -4,16 +4,16 @@
+ LIBDIR=${PREFIX}/lib
+ CXXFLAGS=-O2
+ 
+-all: bpatch libbdelta.so bdelta
+-libbdelta.so: libbdelta.cpp container.h
+-	${CC} -shared -fPIC ${CXXFLAGS} $< -o $@
+-bdelta: bdelta.cpp container.h file.h
+-	${CC} $< -o $@ ${CXXFLAGS} -L. -lbdelta -lstdc++
+-bpatch: bpatch.cpp file.h
++all: bpatch bdelta
++libbdelta.dylib: libbdelta.cpp container.h
++	${CXX} -dynamiclib -fPIC ${CXXFLAGS} $< -o $@
++bdelta: bdelta.cpp container.h file.h libbdelta.dylib
++	${CXX} $< -o $@ ${CXXFLAGS} -L. -lbdelta -lstdc++
++bpatch: bpatch.cpp file.h libbdelta.dylib
+ % : %.cpp
+-	${CC} $< -o $@ ${CXXFLAGS} -lstdc++
+-install: libbdelta.so bdelta bpatch
++	${CXX} $< -o $@ ${CXXFLAGS} -lstdc++
++install: libbdelta.dylib bdelta bpatch
+ 	mkdir -p $(DESTDIR)$(BINDIR)
+-	install -m 755 libbdelta.so $(DESTDIR)$(LIBDIR)
++	install -m 755 libbdelta.dylib $(DESTDIR)$(LIBDIR)
+ 	install -m 755 bdelta $(DESTDIR)$(BINDIR)
+ 	install -m 755 bpatch $(DESTDIR)$(BINDIR)

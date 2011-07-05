@@ -1,0 +1,13 @@
+--- /tmp/configure.in	2007-11-01 04:14:36 +0400
++++ xchat-2.8.4/configure.in	2007-11-01 04:19:14 +0400
+@@ -307,8 +307,8 @@
+                         PY_PREFIX=`$pythonpath -c 'import sys; print sys.prefix'`
+                         PY_EXEC_PREFIX=`$pythonpath -c 'import sys; print sys.exec_prefix'`
+                         if test -f $PY_INC/Python.h; then
+-                                PY_LIBS="-L$PY_LIB/config -lpython$PY_VER -lpthread -lutil"
+-                                PY_CFLAGS="-I$PY_INC"
++				PY_LIBS="`${pythonpath%2}-config --libs`"
++				PY_CFLAGS="`${pythonpath%2}-config --cflags`"
+                                 AC_MSG_RESULT(ok)
+                         else
+                                 python=no

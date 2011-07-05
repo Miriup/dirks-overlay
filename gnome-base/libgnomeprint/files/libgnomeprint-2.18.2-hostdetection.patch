@@ -1,0 +1,17 @@
+--- /tmp/aclocal.m4	2007-10-31 16:38:50 +0400
++++ libgnomeprint-2.18.2/aclocal.m4	2007-10-31 16:39:56 +0400
+@@ -3187,8 +3187,12 @@
+ AC_DEFUN([AC_CHECK_LIBM],
+ [AC_REQUIRE([AC_CANONICAL_HOST])dnl
+ LIBM=
+-case $host in
+-*-*-beos* | *-*-cygwin* | *-*-pw32* | *-*-darwin*)
++case $host_os in
++beos* | cygwin* | pw32* | darwin*)
++  echo $host > /tmp/dirk
++  echo $host_os >> /tmp/dirk
++  echo $host_cpu >> /tmp/dirk
++  echo $host_vendor >> /tmp/dirk
+   # These system don't have libm, or don't need it
+   ;;
+ *-ncr-sysv4.3*)

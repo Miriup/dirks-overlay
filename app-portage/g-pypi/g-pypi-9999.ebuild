@@ -13,7 +13,7 @@ HOMEPAGE="http://code.google.com/p/g-pypi/"
 #SRC_URI="http://pypi.python.org/packages/source/g/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 # A decent 9999 ebuild would no KEYWORDS!
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~x86-macos"
 SLOT="0"
 IUSE="test"
 DEPEND="dev-python/setuptools
@@ -30,6 +30,8 @@ RDEPEND="dev-python/setuptools
 src_prepare() {
 	cd ${S}/g_pypi
 	epatch "${FILESDIR}/portage_utils.patch"
+	cd ..
+	epatch "${FILESDIR}"/${P}-ebuild-tmpl.patch
 }
 
 src_test() {

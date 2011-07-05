@@ -1,0 +1,10 @@
+--- src/sql/drivers/mysql/qsql_mysql.cpp
++++ src/sql/drivers/mysql/qsql_mysql.cpp
+@@ -37,7 +37,6 @@
+ #include "qsql_mysql.h"
+ #include <private/qsqlextension_p.h>
+ 
+-#include <qapplication.h>
+ #include <qdatetime.h>
+ #include <qvaluevector.h>
+ #include <qsqlrecord.h>

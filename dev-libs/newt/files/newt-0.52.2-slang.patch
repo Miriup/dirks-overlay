@@ -1,0 +1,60 @@
+--- configure.in	2007-12-29 20:37:13 +0400
++++ configure.in	2007-12-29 22:33:28 +0400
+@@ -17,7 +17,7 @@
+ AC_PROG_LN_S
+ AM_GNU_GETTEXT([external])
+ 
+-AC_CHECK_HEADERS(sys/select.h alloca.h)
++AC_CHECK_HEADERS(sys/select.h alloca.h sys/stat.h)
+ 
+ AC_ARG_WITH(gpm-support, [  --with-gpm-support         Compile with GPM support])
+ 
+--- whiptail.c	2007-12-29 22:34:12 +0400
++++ whiptail.c	2007-12-29 22:37:56 +0400
+@@ -8,6 +8,9 @@
+ #include <unistd.h>
+ #include <wchar.h>
+ #include <slang.h>
++#ifdef HAVE_SYS_STAT_H
++#include <sys/stat.h>
++#endif
+ 
+ #include "nls.h"
+ #include "dialogboxes.h"
+--- Makefile.in	2007-12-29 21:13:27 +0400
++++ Makefile.in	2007-12-29 22:47:39 +0400
+@@ -3,7 +3,8 @@
+ LIBTCL = -ltcl8.4
+ 
+ GPM_SUPPORT=@gpm_support@
+-CFLAGS = $(RPM_OPT_FLAGS) -Wall  -D_GNU_SOURCE -g -O2 -DUTF8 -fPIC -I/usr/include/slang
++CFLAGS = $(RPM_OPT_FLAGS) -Wall  -D_GNU_SOURCE -DUTF8 -fPIC
++CC=@CC@
+ 
+ SHLIBFLAGS= -Wl,-O1 -Wl,--version-script,newt.0.52.ver
+ VERSION = @VERSION@
+@@ -52,19 +53,19 @@
+ 	$(MAKE) -C po stamp-po
+ 
+ test:	$(TESTOBJS) $(LIBNEWT)
+-	$(CC) -g -o test $(TESTOBJS) $(LIBNEWT) $(LIBS) -static
++	$(CC) $(LDFLAGS) -o test $(TESTOBJS) $(LIBNEWT) $(LIBS)
+ 
+ testgrid:	testgrid.o $(LIBNEWT)
+-	$(CC) -g -o testgrid testgrid.o $(LIBNEWT) $(LIBS)
++	$(CC) $(LDFLAGS) -o testgrid testgrid.o $(LIBNEWT) $(LIBS)
+ 
+ testtree:	testtree.o $(LIBNEWT)
+-	$(CC) -g -o testtree testtree.o $(LIBNEWT) $(LIBS)
++	$(CC) $(LDFLAGS) -o testtree testtree.o $(LIBNEWT) $(LIBS)
+ 
+ showchars:	showchars.o $(LIBNEWT)
+-	$(CC) -g -o showchars showchars.o $(LIBNEWT) $(LIBS)
++	$(CC) $(LDFLAGS) -o showchars showchars.o $(LIBNEWT) $(LIBS)
+ 
+ showkey:	showkey.o $(LIBNEWT)
+-	$(CC) -g -o showkey showkey.o $(LIBNEWT) $(LIBS)
++	$(CC) $(LDFLAGS) -o showkey showkey.o $(LIBNEWT) $(LIBS)
+ 
+ _snackmodule.so:   snackmodule.c $(LIBNEWTSH)
+ 	for ver in $(PYTHONVERS) ; do \

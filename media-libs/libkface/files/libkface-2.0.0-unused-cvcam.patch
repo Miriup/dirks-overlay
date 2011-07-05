@@ -1,0 +1,32 @@
+diff -ur digikam-2.0.0-beta6/extra/libkface/cmake/modules_opencv/FindOpenCV.cmake digikam-2.0.0-beta6/extra/libkface/cmake/modules_opencv/FindOpenCV.cmake
+--- digikam-2.0.0-beta6/extra/libkface/cmake/modules_opencv/FindOpenCV.cmake	2011-05-30 11:22:32.000000000 +0400
++++ digikam-2.0.0-beta6/extra/libkface/cmake/modules_opencv/FindOpenCV.cmake	2011-06-24 15:35:12.000000000 +0400
+@@ -98,7 +98,6 @@
+   cv/include
+   cxcore/include
+   cvaux/include
+-  otherlibs/cvcam/include
+   otherlibs/highgui
+   otherlibs/highgui/include
+   otherlibs/_graphics/include
+@@ -132,10 +131,6 @@
+   NAMES highgui.h 
+   PATHS ${OpenCV_ROOT_DIR} 
+   PATH_SUFFIXES ${OpenCV_INCDIR_SUFFIXES} )
+-FIND_PATH(OpenCV_CVCAM_INCLUDE_DIR    
+-  NAMES cvcam.h 
+-  PATHS ${OpenCV_ROOT_DIR} 
+-  PATH_SUFFIXES ${OpenCV_INCDIR_SUFFIXES} )
+ 
+ #
+ # find sbsolute path to all libraries 
+@@ -148,9 +143,6 @@
+ FIND_LIBRARY(OpenCV_CVAUX_LIBRARY
+   NAMES cvaux
+   PATHS ${OpenCV_ROOT_DIR}  PATH_SUFFIXES ${OpenCV_LIBDIR_SUFFIXES} )
+-FIND_LIBRARY(OpenCV_CVCAM_LIBRARY   
+-  NAMES cvcam
+-  PATHS ${OpenCV_ROOT_DIR}  PATH_SUFFIXES ${OpenCV_LIBDIR_SUFFIXES} ) 
+ FIND_LIBRARY(OpenCV_CVHAARTRAINING_LIBRARY
+   NAMES cvhaartraining
+   PATHS ${OpenCV_ROOT_DIR}  PATH_SUFFIXES ${OpenCV_LIBDIR_SUFFIXES} ) 

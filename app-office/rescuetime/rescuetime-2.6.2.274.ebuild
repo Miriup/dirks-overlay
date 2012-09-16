@@ -27,7 +27,7 @@ src_unpack() {
 	mkdir "${WORKDIR}/${P}"
 	cd "${WORKDIR}/${P}"
 	unpack "${A}"
-	unpack ./data.tar.gz
+	unpack "./data.tar.gz"
 }
 
 src_install() {

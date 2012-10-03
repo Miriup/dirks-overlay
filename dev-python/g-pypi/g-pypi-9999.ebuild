@@ -8,11 +8,12 @@ SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="2.5 3.*"
 DISTUTILS_SRC_TEST="nosetests"
 
-inherit distutils
+inherit git-2 distutils
 
 DESCRIPTION="Manages ebuilds using information from Python Package Index"
 HOMEPAGE="https://github.com/iElectric/g-pypi"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+#SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+EGIT_REPO_URI="git@github.com:Miriup/${PN}.git"
 
 LICENSE="BSD-2"
 KEYWORDS="~amd64 ~x86"

@@ -13,7 +13,7 @@ EGIT_REPO_URI="git://github.com/sahib/rmlint.git"
 LICENSE=""
 SLOT="0"
 # That's where the author says it works on:
-KEYWORDS="~amd64 ~amd64-linux ~ia64 ~ia64-linux ~x86-linux ~x86-solaris"
+KEYWORDS="~amd64 ~amd64-linux ~ia64 ~ia64-linux ~x86 ~x86-linux ~x86-solaris"
 IUSE=""
 
 DEPEND=""

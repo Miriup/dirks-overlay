@@ -4,30 +4,43 @@
 
 EAPI=4
 
+inherit rpm
+
+if [ ${PV} -eq 9999 ]
+then
+	MY_PV=current
+else
+	MY_PV=9999
+fi
+
 DESCRIPTION="RescueTime is a service that provides the user with the knowledge of how they spend their time while on the computer."
 HOMEPAGE="http://help.rescuetime.com/discussions/beta/7-rescuetime-for-linux-beta-tester-feedback"
-BASE_URI="https://www.rescuetime.com/installers/${PN}_${PV}_"
-SRC_URI="amd64? ( ${BASE_URI}amd64.deb )
-x86? ( ${BASE_URI}i386.deb )
+BASE_URI="https://www.rescuetime.com/installers/${PN}_${MY_PV}_"
+SRC_URI="amd64? ( ${BASE_URI}amd64.rpm )
+x86? ( ${BASE_URI}i386.rpm )
 "
 
 LICENSE=""
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="hardened"
 RESTRICT="mirror"
 
 # xprintidle, libqtgui4, libqt4-sql-sqlite 
 # If you're having problems with xprintidle, use layman to add the bgo-overlay
 # (see http://bgo.zugaina.org/).
-DEPEND=""
-RDEPEND="=x11-libs/qt-gui-4* x11-libs/qt-sql[sqlite] x11-misc/xprintidle >=sys-libs/glibc-2.14"
+DEPEND="app-arch/rpm2targz hardened? ( sys-apps/paxctl )"
+RDEPEND="=dev-qt/qtgui-4* dev-qt/qtsql[sqlite] x11-misc/xprintidle >=sys-libs/glibc-2.14"
 
 src_unpack() {
 	mkdir "${WORKDIR}/${P}"
 	cd "${WORKDIR}/${P}"
-	unpack "${A}"
-	unpack "./data.tar.gz"
+	rpm_src_unpack "${A}"
+}
+
+src_configure() {
+	# hardened voodoo
+	[[ -x /sbin/paxctl ]] && /sbin/paxctl -cm usr/bin/rescuetime 
 }
 
 src_install() {
